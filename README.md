@@ -1,7 +1,10 @@
 ## rust-web-server-cli
 Generate rust web server code via mustache template [rust-web-server-mustache](https://github.com/SimonOsaka/rust-web-server-mustache).
 
+[rust-web-server-cli](https://github.com/SimonOsaka/rust-web-server-cli) + [rust-web-server-mustache](https://github.com/SimonOsaka/rust-web-server-mustache) = [rust-web-server-example](https://github.com/SimonOsaka/rust-web-server-example)
+
 ### How to use
+
 1. `git clone https://github.com/SimonOsaka/rust-web-server-cli.git`
 2. `git clone https://github.com/SimonOsaka/rust-web-server-mustache.git`
 3. `cd rust-web-server-cli`
