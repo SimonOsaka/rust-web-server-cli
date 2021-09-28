@@ -5,7 +5,7 @@ project_name = "rustxxx"
 features_name = "postgres"
 
 # code template path, default value: './mustache'
-mustache_path = "/Volumes/code/temp/mustache"
+mustache_path = "/Volumes/code/github/rust-web-server-mustache"
 
 # code gen path, default value: './example', for example: './example', '/Volumes/hello/world'
 example_path = "/Volumes/code/temp/example"
