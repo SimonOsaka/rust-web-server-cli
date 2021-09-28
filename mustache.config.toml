@@ -1,0 +1,51 @@
+# your project's name
+project_name = "rustxxx"
+
+# alternative value: ["postgres", "mysql"]
+features_name = "postgres"
+
+# code template path, default value: './mustache'
+mustache_path = "/Volumes/code/temp/mustache"
+
+# code gen path, default value: './example', for example: './example', '/Volumes/hello/world'
+example_path = "/Volumes/code/temp/example"
+
+[cargo_toml]
+# bin's name of command 'cargo build --release'
+bin_name = "rustx"
+
+[env]
+# database url
+database_url = "postgres://postgres:@localhost:5432/xuzhongliang"
+# server bind address
+bind_address = "127.0.0.1:3030"
+
+[types]
+#lib 'types' package name
+package_name = "jtypes"
+#lib 'types' member name or folder name or module name
+member_name = "just_types"
+
+[server]
+#log file path
+log_path = "/apps/log/rust"
+
+[repository]
+package_name = "jrepository"
+member_name = "just_repository"
+# timezone offset
+time_zone = "+08:00"
+# connection's max num
+max_conn = 10
+# connection's min num
+min_conn = 1
+# second
+time_out = 30
+
+[domain]
+package_name = "jdomain"
+member_name = "just_domain"
+
+[api]
+package_name = "japi"
+member_name = "just_api"
