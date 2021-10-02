@@ -109,6 +109,7 @@ struct Config {
     repository: Repository,
     domain: Domain,
     api: Api,
+    redis: Redis,
 }
 
 #[derive(Deserialize, Content, Clone, Debug)]
@@ -155,6 +156,12 @@ struct Api {
     member_name: String,
 }
 
+#[derive(Deserialize, Content, Clone, Debug)]
+struct Redis {
+    package_name: String,
+    member_name: String,
+    redis_url: String,
+}
 struct DebugOpt(bool);
 impl DebugOpt {
     fn debug(&self, s: String) {

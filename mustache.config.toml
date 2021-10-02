@@ -49,3 +49,8 @@ member_name = "just_domain"
 [api]
 package_name = "japi"
 member_name = "just_api"
+
+[redis]
+package_name = "jredis"
+member_name = "just_redis"
+redis_url = "redis://:123456@192.168.56.102:6379/"
