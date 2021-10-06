@@ -54,6 +54,11 @@ fn main() {
     for entry in walk_dir {
         let entry = entry.unwrap();
         let mustache_path = entry.path().to_str();
+        //exclude .git
+        if mustache_path.unwrap().contains(".git") {
+            continue;
+        }
+
         let example_path = mustache_path.unwrap().replace(
             my_path.mustache_path.as_str(),
             my_path.example_path.as_str(),
@@ -70,12 +75,15 @@ fn main() {
                 .replace(format!("{}/", &my_path.mustache_path).as_str(), "");
             debug_opt.debug(format!("mustache_file: {}", mustache_file));
 
-            tpls.get(&mustache_file).unwrap().render_to_file(
-                my_path
-                    .rename_dir(&example_path)
-                    .replace(my_path.mustache_file_suffix().as_str(), ""),
-                &config,
-            );
+            tpls.get(&mustache_file)
+                .unwrap()
+                .render_to_file(
+                    my_path
+                        .rename_dir(&example_path)
+                        .replace(my_path.mustache_file_suffix().as_str(), ""),
+                    &config,
+                )
+                .unwrap();
         } else if entry.path().is_dir() {
             //dir
             debug_opt.debug(format!("example_path:  {:?}", example_path));
@@ -110,6 +118,7 @@ struct Config {
     domain: Domain,
     api: Api,
     redis: Redis,
+    search: Search,
 }
 
 #[derive(Deserialize, Content, Clone, Debug)]
@@ -162,6 +171,15 @@ struct Redis {
     member_name: String,
     redis_url: String,
 }
+
+#[derive(Deserialize, Content, Clone, Debug)]
+struct Search {
+    package_name: String,
+    member_name: String,
+    search_url: String,
+    search_key: String,
+}
+
 struct DebugOpt(bool);
 impl DebugOpt {
     fn debug(&self, s: String) {

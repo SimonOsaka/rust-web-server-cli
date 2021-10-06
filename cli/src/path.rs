@@ -8,6 +8,7 @@ pub(crate) struct Path {
     pub(crate) file_repository_name: FileName,
     pub(crate) file_types_name: FileName,
     pub(crate) file_redis_name: FileName,
+    pub(crate) file_search_name: FileName,
 }
 #[derive(Debug)]
 pub(crate) struct FileName {
@@ -41,6 +42,10 @@ impl Path {
                 old_name: "redis".to_string(),
                 new_name: "redis".to_string(),
             },
+            file_search_name: FileName {
+                old_name: "search".to_string(),
+                new_name: "search".to_string(),
+            },
         }
     }
     pub(crate) fn rename_dir(&self, path: &str) -> String {
@@ -73,6 +78,12 @@ impl Path {
             format!("{}/{}", &self.example_path, &self.file_redis_name.old_name);
         let example_redis_path_new =
             format!("{}/{}", &self.example_path, &self.file_redis_name.new_name);
+        //search
+        let example_search_path_old =
+            format!("{}/{}", &self.example_path, &self.file_search_name.old_name);
+        let example_search_path_new =
+            format!("{}/{}", &self.example_path, &self.file_search_name.new_name);
+
         let rename_dir;
         if path.starts_with(&example_api_path_old) {
             rename_dir = path
@@ -93,6 +104,10 @@ impl Path {
         } else if path.starts_with(&example_redis_path_old) {
             rename_dir = path
                 .replace(&example_redis_path_old, &example_redis_path_new)
+                .to_string();
+        } else if path.starts_with(&example_search_path_old) {
+            rename_dir = path
+                .replace(&example_search_path_old, &example_search_path_new)
                 .to_string();
         } else {
             rename_dir = path.to_string();
@@ -133,6 +148,10 @@ impl From<crate::Config> for Path {
 
         if config.redis.member_name.trim().len() > 0 {
             p.file_redis_name.new_name = config.redis.member_name;
+        }
+
+        if config.search.member_name.trim().len() > 0 {
+            p.file_search_name.new_name = config.search.member_name;
         }
         p
     }
