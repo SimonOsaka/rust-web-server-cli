@@ -23,6 +23,7 @@ struct Opt {
 fn main() {
     let opt = Opt::from_args();
     let debug_opt = DebugOpt(opt.debug);
+    // let debug_opt = DebugOpt(true);
 
     debug_opt.debug(format!("opt: {:#?}", opt));
 
@@ -30,16 +31,17 @@ fn main() {
     println!("Gen...");
 
     let mustache_config_path = opt.mustache_config_path;
-    debug_opt.debug(format!("config path: {}", mustache_config_path));
+    // let mustache_config_path = String::from("/Volumes/code/github/rust-web-server-cli/mustache.config.toml"); //opt.mustache_config_path;
+    debug_opt.debug(format!("mustache_config_path: {}", mustache_config_path));
 
     let config_str = read_to_string(mustache_config_path).unwrap();
-    debug_opt.debug(format!("{}", config_str));
+    debug_opt.debug(format!("config_str: {}", config_str));
 
     let config: Config = toml::from_str(&config_str).unwrap();
-    debug_opt.debug(format!("{:?}", config));
+    debug_opt.debug(format!("config: {:?}", config));
 
     let my_path = Path::from(config.clone());
-    debug_opt.debug(format!("{:?}", my_path));
+    debug_opt.debug(format!("my_path: {:?}", my_path));
 
     let tpls = Ramhorns::from_folder_with_extension(
         &my_path.mustache_path,
@@ -163,6 +165,7 @@ struct Domain {
 struct Api {
     package_name: String,
     member_name: String,
+    jwt_secret: String,
 }
 
 #[derive(Deserialize, Content, Clone, Debug)]
@@ -185,6 +188,7 @@ impl DebugOpt {
     fn debug(&self, s: String) {
         if self.0 {
             println!("{}", &s);
+            println!();
         }
     }
 }

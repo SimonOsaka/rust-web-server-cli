@@ -7,15 +7,15 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug executable 'rust-warp-sqlx-backend'",
+            "name": "Debug executable 'cli'",
             "cargo": {
                 "args": [
                     "build",
-                    "--bin=rust-warp-sqlx-backend",
-                    "--package=rust-warp-sqlx-backend"
+                    "--bin=gen",
+                    "--package=cli"
                 ],
                 "filter": {
-                    "name": "rust-warp-sqlx-backend",
+                    "name": "gen",
                     "kind": "bin"
                 }
             },
@@ -28,16 +28,16 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug unit tests in executable 'rust-warp-sqlx-backend'",
+            "name": "Debug unit tests in executable 'cli'",
             "cargo": {
                 "args": [
                     "test",
                     "--no-run",
-                    "--bin=rust-warp-sqlx-backend",
-                    "--package=rust-warp-sqlx-backend"
+                    "--bin=gen",
+                    "--package=cli"
                 ],
                 "filter": {
-                    "name": "rust-warp-sqlx-backend",
+                    "name": "gen",
                     "kind": "bin"
                 }
             },
