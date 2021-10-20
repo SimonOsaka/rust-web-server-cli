@@ -3,7 +3,8 @@ pub(crate) struct Path {
     pub(crate) mustache_path: String,
     pub(crate) mustache_file_extension: String,
     pub(crate) example_path: String,
-    pub(crate) file_api_name: FileName,
+    pub(crate) file_warp_api_name: FileName,
+    pub(crate) file_axum_api_name: FileName,
     pub(crate) file_domain_name: FileName,
     pub(crate) file_repository_name: FileName,
     pub(crate) file_types_name: FileName,
@@ -22,9 +23,13 @@ impl Path {
             mustache_path: "./mustache".to_string(),
             mustache_file_extension: "mustache".to_string(),
             example_path: "./example".to_string(),
-            file_api_name: FileName {
-                old_name: "api".to_string(),
-                new_name: "api".to_string(),
+            file_warp_api_name: FileName {
+                old_name: "warp-api".to_string(),
+                new_name: "warp-api".to_string(),
+            },
+            file_axum_api_name: FileName {
+                old_name: "axum-api".to_string(),
+                new_name: "axum-api".to_string(),
             },
             file_domain_name: FileName {
                 old_name: "domain".to_string(),
@@ -49,11 +54,24 @@ impl Path {
         }
     }
     pub(crate) fn rename_dir(&self, path: &str) -> String {
-        //api
-        let example_api_path_old =
-            format!("{}/{}", &self.example_path, &self.file_api_name.old_name);
-        let example_api_path_new =
-            format!("{}/{}", &self.example_path, &self.file_api_name.new_name);
+        //warp-api
+        let example_warp_api_path_old = format!(
+            "{}/{}",
+            &self.example_path, &self.file_warp_api_name.old_name
+        );
+        let example_warp_api_path_new = format!(
+            "{}/{}",
+            &self.example_path, &self.file_warp_api_name.new_name
+        );
+        //axum-api
+        let example_axum_api_path_old = format!(
+            "{}/{}",
+            &self.example_path, &self.file_axum_api_name.old_name
+        );
+        let example_axum_api_path_new = format!(
+            "{}/{}",
+            &self.example_path, &self.file_axum_api_name.new_name
+        );
         //domain
         let example_domain_path_old =
             format!("{}/{}", &self.example_path, &self.file_domain_name.old_name);
@@ -85,9 +103,13 @@ impl Path {
             format!("{}/{}", &self.example_path, &self.file_search_name.new_name);
 
         let rename_dir;
-        if path.starts_with(&example_api_path_old) {
+        if path.starts_with(&example_warp_api_path_old) {
             rename_dir = path
-                .replace(&example_api_path_old, &example_api_path_new)
+                .replace(&example_warp_api_path_old, &example_warp_api_path_new)
+                .to_string();
+        } else if path.starts_with(&example_axum_api_path_old) {
+            rename_dir = path
+                .replace(&example_axum_api_path_old, &example_axum_api_path_new)
                 .to_string();
         } else if path.starts_with(&example_domain_path_old) {
             rename_dir = path
@@ -130,8 +152,12 @@ impl From<crate::Config> for Path {
             p.example_path = config.example_path;
         }
 
-        if config.api.member_name.trim().len() > 0 {
-            p.file_api_name.new_name = config.api.member_name;
+        if config.warp_api.member_name.trim().len() > 0 {
+            p.file_warp_api_name.new_name = config.warp_api.member_name;
+        }
+
+        if config.axum_api.member_name.trim().len() > 0 {
+            p.file_axum_api_name.new_name = config.axum_api.member_name;
         }
 
         if config.domain.member_name.trim().len() > 0 {

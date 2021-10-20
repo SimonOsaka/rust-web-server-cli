@@ -46,9 +46,14 @@ time_out = 30
 package_name = "jdomain"
 member_name = "just_domain"
 
-[api]
-package_name = "japi"
-member_name = "just_api"
+[warp_api]
+package_name = "japi_warp"
+member_name = "just_warp_api"
+jwt_secret = "imsecret"
+
+[axum_api]
+package_name = "japi_axum"
+member_name = "just_axum_api"
 jwt_secret = "imsecret"
 
 [redis]
