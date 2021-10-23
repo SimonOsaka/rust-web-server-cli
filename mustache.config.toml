@@ -27,6 +27,8 @@ package_name = "jtypes"
 member_name = "just_types"
 
 [server]
+package_name = "jserver"
+member_name = "just_server"
 #log file path
 log_path = "/apps/log/rust"
 

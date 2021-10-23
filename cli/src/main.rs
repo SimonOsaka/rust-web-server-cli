@@ -143,6 +143,8 @@ struct Types {
 
 #[derive(Deserialize, Content, Clone, Debug)]
 struct Server {
+    package_name: String,
+    member_name: String,
     log_path: String,
 }
 
