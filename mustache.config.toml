@@ -51,12 +51,10 @@ member_name = "just_domain"
 [warp_api]
 package_name = "japi_warp"
 member_name = "just_warp_api"
-jwt_secret = "imsecret"
 
 [axum_api]
 package_name = "japi_axum"
 member_name = "just_axum_api"
-jwt_secret = "imsecret"
 
 [redis]
 package_name = "jredis"
@@ -68,3 +66,8 @@ package_name = "jsearch"
 member_name = "just_search"
 search_url = "http://127.0.0.1:7700"
 search_key = "meili-master-key"
+
+[auth]
+package_name = "jauth"
+member_name = "just_auth"
+jwt_secret = "imsecret"

@@ -11,6 +11,7 @@ pub(crate) struct Path {
     pub(crate) file_redis_name: FileName,
     pub(crate) file_search_name: FileName,
     pub(crate) file_server_name: FileName,
+    pub(crate) file_auth_name: FileName,
 }
 #[derive(Debug)]
 pub(crate) struct FileName {
@@ -55,6 +56,10 @@ impl Path {
             file_server_name: FileName {
                 old_name: "server".to_string(),
                 new_name: "server".to_string(),
+            },
+            file_auth_name: FileName {
+                old_name: "auth".to_string(),
+                new_name: "auth".to_string(),
             },
         }
     }
@@ -111,6 +116,11 @@ impl Path {
             format!("{}/{}", &self.example_path, &self.file_server_name.old_name);
         let example_server_path_new =
             format!("{}/{}", &self.example_path, &self.file_server_name.new_name);
+        //auth
+        let example_auth_path_old =
+            format!("{}/{}", &self.example_path, &self.file_auth_name.old_name);
+        let example_auth_path_new =
+            format!("{}/{}", &self.example_path, &self.file_auth_name.new_name);
 
         let rename_dir;
         if path.starts_with(&example_warp_api_path_old) {
@@ -144,6 +154,10 @@ impl Path {
         } else if path.starts_with(&example_server_path_old) {
             rename_dir = path
                 .replace(&example_server_path_old, &example_server_path_new)
+                .to_string();
+        } else if path.starts_with(&example_auth_path_old) {
+            rename_dir = path
+                .replace(&example_auth_path_old, &example_auth_path_new)
                 .to_string();
         } else {
             rename_dir = path.to_string();
@@ -196,6 +210,10 @@ impl From<crate::Config> for Path {
 
         if config.server.member_name.trim().len() > 0 {
             p.file_server_name.new_name = config.server.member_name;
+        }
+
+        if config.auth.member_name.trim().len() > 0 {
+            p.file_auth_name.new_name = config.auth.member_name;
         }
         p
     }

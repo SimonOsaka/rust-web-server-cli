@@ -122,6 +122,7 @@ struct Config {
     axum_api: AxumApi,
     redis: Redis,
     search: Search,
+    auth: Auth,
 }
 
 #[derive(Deserialize, Content, Clone, Debug)]
@@ -168,14 +169,12 @@ struct Domain {
 struct WarpApi {
     package_name: String,
     member_name: String,
-    jwt_secret: String,
 }
 
 #[derive(Deserialize, Content, Clone, Debug)]
 struct AxumApi {
     package_name: String,
     member_name: String,
-    jwt_secret: String,
 }
 
 #[derive(Deserialize, Content, Clone, Debug)]
@@ -191,6 +190,13 @@ struct Search {
     member_name: String,
     search_url: String,
     search_key: String,
+}
+
+#[derive(Deserialize, Content, Clone, Debug)]
+struct Auth {
+    package_name: String,
+    member_name: String,
+    jwt_secret: String,
 }
 
 struct DebugOpt(bool);
