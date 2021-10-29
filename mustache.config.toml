@@ -16,7 +16,7 @@ bin_name = "rustx"
 
 [env]
 # database url
-database_url = "postgres://postgres:@localhost:5432/xuzhongliang"
+database_url = "postgres://postgres:@localhost:5432/my_example"
 # server bind address
 bind_address = "127.0.0.1:3030"
 
