@@ -36,7 +36,8 @@ log_path = "/apps/log/rust"
 package_name = "jrepository"
 member_name = "just_repository"
 # timezone offset
-time_zone = "+08:00"
+mysql_time_zone = "+08:00"
+postgres_time_zone = "Asia/Shanghai"
 # connection's max num
 max_conn = 10
 # connection's min num

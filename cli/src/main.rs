@@ -153,7 +153,8 @@ struct Server {
 struct Repository {
     package_name: String,
     member_name: String,
-    time_zone: String,
+    mysql_time_zone: String,
+    postgres_time_zone: String,
     max_conn: i8,
     min_conn: i8,
     time_out: i8,
