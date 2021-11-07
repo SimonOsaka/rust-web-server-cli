@@ -109,7 +109,6 @@ fn main() {
 #[derive(Deserialize, Content, Clone, Debug)]
 struct Config {
     project_name: String,
-    features_name: String,
     mustache_path: String,
     example_path: String,
     cargo_toml: CargoToml,
@@ -153,7 +152,6 @@ struct Server {
 struct Repository {
     package_name: String,
     member_name: String,
-    mysql_time_zone: String,
     postgres_time_zone: String,
     max_conn: i8,
     min_conn: i8,

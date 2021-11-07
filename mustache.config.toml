@@ -1,9 +1,6 @@
 # your project's name
 project_name = "rustxxx"
 
-# alternative value: ["postgres", "mysql"]
-features_name = "postgres"
-
 # code template path, default value: './mustache'
 mustache_path = "/Volumes/code/github/rust-web-server-mustache"
 
@@ -36,7 +33,6 @@ log_path = "/apps/log/rust"
 package_name = "jrepository"
 member_name = "just_repository"
 # timezone offset
-mysql_time_zone = "+08:00"
 postgres_time_zone = "Asia/Shanghai"
 # connection's max num
 max_conn = 10
