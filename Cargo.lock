@@ -76,12 +76,23 @@ dependencies = [
 name = "cli"
 version = "0.1.0"
 dependencies = [
+ "dircpy",
  "ramhorns",
  "serde",
  "serde_derive",
  "serde_json",
  "structopt",
  "toml",
+ "walkdir",
+]
+
+[[package]]
+name = "dircpy"
+version = "0.3.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "99680c1cee51b7a37c0f82a81cc0e7f25c7cd81d3de93509768ad884c4d1a8a1"
+dependencies = [
+ "log",
  "walkdir",
 ]
 
@@ -146,6 +157,15 @@ name = "libc"
 version = "0.2.102"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a2a5ac8f984bfcf3a823267e5fde638acc3325f6496633a5da6bb6eb2171e103"
+
+[[package]]
+name = "log"
+version = "0.4.14"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "51b9bbe6c47d51fc3e1a9b945965946b4c44142ab8792c50835a980d362c2710"
+dependencies = [
+ "cfg-if",
+]
 
 [[package]]
 name = "logos"

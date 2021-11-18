@@ -3,6 +3,7 @@ pub(crate) struct Path {
     pub(crate) mustache_path: String,
     pub(crate) mustache_file_extension: String,
     pub(crate) example_path: String,
+    pub(crate) crates_name: String,
     pub(crate) file_warp_api_name: FileName,
     pub(crate) file_axum_api_name: FileName,
     pub(crate) file_domain_name: FileName,
@@ -12,6 +13,7 @@ pub(crate) struct Path {
     pub(crate) file_search_name: FileName,
     pub(crate) file_server_name: FileName,
     pub(crate) file_auth_name: FileName,
+    pub(crate) file_logger_name: FileName,
 }
 #[derive(Debug)]
 pub(crate) struct FileName {
@@ -25,6 +27,7 @@ impl Path {
             mustache_path: "./mustache".to_string(),
             mustache_file_extension: "mustache".to_string(),
             example_path: "./example".to_string(),
+            crates_name: "crates".to_string(),
             file_warp_api_name: FileName {
                 old_name: "warp-api".to_string(),
                 new_name: "warp-api".to_string(),
@@ -60,6 +63,10 @@ impl Path {
             file_auth_name: FileName {
                 old_name: "auth".to_string(),
                 new_name: "auth".to_string(),
+            },
+            file_logger_name: FileName {
+                old_name: "logger".to_string(),
+                new_name: "logger".to_string(),
             },
         }
     }
@@ -121,6 +128,11 @@ impl Path {
             format!("{}/{}", &self.example_path, &self.file_auth_name.old_name);
         let example_auth_path_new =
             format!("{}/{}", &self.example_path, &self.file_auth_name.new_name);
+        //logger
+        let example_logger_path_old =
+            format!("{}/{}", &self.example_path, &self.file_logger_name.old_name);
+        let example_logger_path_new =
+            format!("{}/{}", &self.example_path, &self.file_logger_name.new_name);
 
         let rename_dir;
         if path.starts_with(&example_warp_api_path_old) {
@@ -158,6 +170,10 @@ impl Path {
         } else if path.starts_with(&example_auth_path_old) {
             rename_dir = path
                 .replace(&example_auth_path_old, &example_auth_path_new)
+                .to_string();
+        } else if path.starts_with(&example_logger_path_old) {
+            rename_dir = path
+                .replace(&example_logger_path_old, &example_logger_path_new)
                 .to_string();
         } else {
             rename_dir = path.to_string();
@@ -215,6 +231,11 @@ impl From<crate::Config> for Path {
         if config.auth.member_name.trim().len() > 0 {
             p.file_auth_name.new_name = config.auth.member_name;
         }
+
+        if config.logger.member_name.trim().len() > 0 {
+            p.file_logger_name.new_name = config.logger.member_name;
+        }
+
         p
     }
 }

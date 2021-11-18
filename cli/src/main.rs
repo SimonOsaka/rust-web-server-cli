@@ -1,5 +1,6 @@
 mod path;
 
+use dircpy::copy_dir;
 use path::Path;
 use ramhorns::Content;
 use ramhorns::Ramhorns;
@@ -56,7 +57,7 @@ fn main() {
     for entry in walk_dir {
         let entry = entry.unwrap();
         let mustache_path = entry.path().to_str();
-        //exclude .git
+        // exclude .git
         if mustache_path.unwrap().contains(".git") {
             continue;
         }
@@ -87,6 +88,12 @@ fn main() {
                 )
                 .unwrap();
         } else if entry.path().is_dir() {
+            if let Some(c) = entry.path().file_name() {
+                if c.to_str().is_some() && c.to_str().unwrap().contains(&my_path.crates_name) {
+                    // don't create crates dir
+                    continue;
+                }
+            }
             //dir
             debug_opt.debug(format!("example_path:  {:?}", example_path));
 
@@ -102,6 +109,14 @@ fn main() {
             continue;
         }
     }
+
+    println!("Copy dir...");
+
+    copy_dir(
+        format!("{}/{}", my_path.mustache_path, my_path.crates_name),
+        format!("{}/{}", &my_path.example_path, my_path.crates_name),
+    )
+    .expect("copy dir failed");
 
     println!("Gen success!");
 }
@@ -122,6 +137,7 @@ struct Config {
     redis: Redis,
     search: Search,
     auth: Auth,
+    logger: Logger,
 }
 
 #[derive(Deserialize, Content, Clone, Debug)]
@@ -196,6 +212,12 @@ struct Auth {
     package_name: String,
     member_name: String,
     jwt_secret: String,
+}
+
+#[derive(Deserialize, Content, Clone, Debug)]
+struct Logger {
+    package_name: String,
+    member_name: String,
 }
 
 struct DebugOpt(bool);

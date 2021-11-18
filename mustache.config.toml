@@ -68,3 +68,8 @@ search_key = "meili-master-key"
 package_name = "jauth"
 member_name = "just_auth"
 jwt_secret = "imsecret"
+
+
+[logger]
+package_name = "jlogger"
+member_name = "just_logger"
