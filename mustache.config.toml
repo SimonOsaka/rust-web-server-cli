@@ -26,8 +26,6 @@ member_name = "just_types"
 [server]
 package_name = "jserver"
 member_name = "just_server"
-#log file path
-log_path = "/apps/log/rust"
 
 [repository]
 package_name = "jrepository"
@@ -73,3 +71,9 @@ jwt_secret = "imsecret"
 [logger]
 package_name = "jlogger"
 member_name = "just_logger"
+#log file path
+log_path = "/apps/log/rust"
+log_file = "example.log"
+log_tz_hour = 8
+log_tz_minute = 0
+log_tz_second = 0

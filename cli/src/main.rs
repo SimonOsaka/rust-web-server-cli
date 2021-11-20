@@ -161,7 +161,6 @@ struct Types {
 struct Server {
     package_name: String,
     member_name: String,
-    log_path: String,
 }
 
 #[derive(Deserialize, Content, Clone, Debug)]
@@ -218,6 +217,11 @@ struct Auth {
 struct Logger {
     package_name: String,
     member_name: String,
+    log_path: String,
+    log_file: String,
+    log_tz_hour: i8,
+    log_tz_minute: i8,
+    log_tz_second: i8,
 }
 
 struct DebugOpt(bool);
