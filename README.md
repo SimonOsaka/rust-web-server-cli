@@ -3,6 +3,9 @@ Generate rust web server code via mustache template [rust-web-server-mustache](h
 
 [rust-web-server-cli](https://github.com/SimonOsaka/rust-web-server-cli) ╋ [rust-web-server-mustache](https://github.com/SimonOsaka/rust-web-server-mustache) 〓 [rust-web-server-example](https://github.com/SimonOsaka/rust-web-server-example)
 
+- cli: generate code
+- mapper: generate sql and model
+
 ### Source to use
 
 1. `git clone https://github.com/SimonOsaka/rust-web-server-cli.git`

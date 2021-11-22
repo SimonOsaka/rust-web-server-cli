@@ -1,0 +1,18 @@
+{{#model}}{{#columns}}{{#property}}{{import}}
+{{/property}}{{/columns}}{{/model}}
+
+#[derive(Debug, Clone)]
+pub struct {{#model}}{{struct_name}}{{/model}} {
+    {{#model}}{{#columns}}
+    {{#column}}{{column_name}}{{/column}}: {{#property}}{{{type_name}}}{{/property}},{{/columns}}{{/model}}
+}
+
+{{#model}}{{#relations}}
+#[derive(Debug, Clone)]
+pub struct RelationsResult {
+    {{#model}}{{table_name}}{{/model}}: {{#model}}{{struct_name}}{{/model}},
+    {{#model}}{{#relations}}
+    {{table_name}}: {{struct_name}},
+    {{/relations}}{{/model}}
+}
+{{/relations}}{{/model}}

@@ -1,0 +1,21 @@
+# database url
+database_url = "postgres://postgres:@127.0.0.1:5432/my_example"
+# tables to generate
+# "table_name alias_name"
+mapper_tables = [
+    { table_name = "my_users", table_name_alias = "u", pk = [
+        "id",
+    ] },
+    { table_name = "my_adventures", table_name_alias = "at", pk = [
+        "id",
+    ], relations = [ {  rel_table_name = "my_users", rel_table_name_alias = "u", rel_table_pk = "id", table_fk = "user_id" },
+    ] },
+    { table_name = "my_favorites", table_name_alias = "fav", pk = [
+        "id",
+    ] },
+]
+
+# mustache template file's folder
+templates_path = "/Volumes/code/github/rust-web-server-cli/mapper/templates"
+# generate code path
+examples_path = "/Volumes/code/github/rust-web-server-cli/mapper/examples"

@@ -1,0 +1,138 @@
+use super::models::{{#model}}{{struct_name}}{{/model}};
+use crate::db::{SqlParams, SqlReader, SqlWriter};
+use sql_builder::SqlBuilder;
+use sqlx::{Error, Postgres, Transaction};
+use types::ID;
+
+const {{#repository}}{{table_name_uppercase}}_FIELDS{{/repository}}: &[&str; {{#repository}}{{table_fields_length}}{{/repository}}] = &[
+{{#model}}{{#columns}}
+    {{#column}}"{{column_name}}",{{/column}}
+{{/columns}}{{/model}}
+];
+
+const {{#repository}}{{table_name_uppercase}}_INSERT_FIELDS{{/repository}}: &[&str; {{#repository}}{{table_insert_fields_length}}{{/repository}}] = &[
+{{#model}}{{#columns_for_insert}}
+    {{#column}}"{{column_name}}",{{/column}}
+{{/columns_for_insert}}{{/model}}
+];
+
+const {{#repository}}{{table_name_uppercase}}_STRUCT_FIELDS{{/repository}}: &[&str; {{#repository}}{{table_fields_length}}{{/repository}}] = &[
+{{#model}}
+    "({{#columns}}{{#column}}{{table_alias}}.{{column_name}}",
+    "{{/column}}{{/columns}}) AS \"{{table_name}}\""
+{{/model}}
+];
+
+pub async fn insert_{{#model}}{{table_name}}{{/model}}<'a>(
+    {{#model}}{{table_alias}}{{/model}}: {{#model}}{{struct_name}}{{/model}},
+    transaction: Option<&'a mut Transaction<'static, Postgres>>,
+) -> Result<ID, Error> {
+    let mut param = SqlParams::new();
+
+    let mut sql_builder = SqlBuilder::insert_into("{{#model}}{{table_name}}{{/model}}");
+    sql_builder
+        .fields({{#repository}}{{table_name_uppercase}}_INSERT_FIELDS{{/repository}})
+        .values(&[
+            {{#model}}{{#columns_for_insert}}
+    param.add_value({{table_alias}}.{{#column}}{{column_name}}{{/column}}),
+    {{/columns_for_insert}}{{/model}}
+        ])
+        .returning_id();
+
+    let id = sql_builder.insert_one(param, transaction).await?;
+    debug!("insert id: {:?}", id);
+
+    Ok(id)
+}
+
+pub async fn update_{{#model}}{{table_name}}{{/model}}<'a>(
+    id: ID,
+    {{#model}}{{table_alias}}{{/model}}: {{#model}}{{struct_name}}{{/model}},
+    transaction: Option<&'a mut Transaction<'static, Postgres>>,
+) -> Result<bool, Error> {
+    let mut param = SqlParams::new();
+    let mut sql_builder = SqlBuilder::update_table("{{#model}}{{table_name}}{{/model}}");
+    sql_builder
+    {{#model}}{{#columns_for_insert}}
+        {{#column}}.set("{{column_name}}", param.add_value({{table_alias}}.{{column_name}})){{/column}}
+    {{/columns_for_insert}}{{/model}}
+        .and_where_eq("is_deleted", 0)
+        .and_where_eq("id", param.add_value(id));
+
+    let affect = sql_builder.update_one(param, transaction).await?;
+    Ok(affect > 0)
+}
+
+pub async fn delete_{{#model}}{{table_name}}{{/model}}<'a>(
+    id: ID,
+    transaction: Option<&'a mut Transaction<'static, Postgres>>,
+) -> Result<bool, Error> {
+    let mut param = SqlParams::new();
+
+    let mut sql_builder = SqlBuilder::update_table("{{#model}}{{table_name}}{{/model}}");
+    sql_builder
+        .set("is_deleted", 1)
+        .and_where_eq("is_deleted", 0)
+        .and_where_eq("id", id);
+
+    let affect_rows = sql_builder.delete_one(param, transaction).await?;
+    debug!("delete affect_rows: {:?}", affect_rows);
+
+    Ok(affect_rows > 0)
+}
+
+{{#model}}{{#columns}}
+pub async fn get_{{#model}}{{table_name}}{{/model}}_by_{{#column}}{{column_name}}{{/column}}<'a>(
+    {{#column}}{{column_name}}{{/column}}: {{#property}}{{{type_name}}}{{/property}},
+    transaction: Option<&'a mut Transaction<'static, Postgres>>,
+) -> Result<Option<{{#model}}{{struct_name}}{{/model}}>, Error> {
+    let mut param = SqlParams::new();
+
+    let mut sql_builder = SqlBuilder::select_from(name!("{{#model}}{{table_name}}{{/model}}";"{{#model}}{{table_alias}}{{/model}}"));
+    sql_builder
+        .fields({{#repository}}{{table_name_uppercase}}_FIELDS{{/repository}})
+        .and_where_eq("{{#model}}{{table_alias}}{{/model}}.is_deleted", 0)
+        .and_where_eq("{{#model}}{{table_alias}}{{/model}}.{{#column}}{{column_name}}{{/column}}", param.add_value({{#column}}{{column_name}}{{/column}}));
+
+    let res = sql_builder.query_one_optinal(param, transaction).await?;
+    debug!("get_favorite: {:?}", res);
+
+    Ok(res)
+}
+{{/columns}}{{/model}}
+
+{{#model}}{{#columns}}
+pub async fn find_{{#model}}{{table_name}}{{/model}}_by_{{#column}}{{column_name}}{{/column}}<'a>(
+    {{#column}}{{column_name}}{{/column}}: {{#property}}{{{type_name}}}{{/property}},
+    transaction: Option<&'a mut Transaction<'static, Postgres>>,
+) -> Result<Vec<({{#model}}{{struct_name}}{{/model}}{{#model}}{{#relations}},{{struct_name}}{{/relations}}{{/model}})>, Error> {
+    let mut params = SqlParams::new();
+    let mut sql_builder = SqlBuilder::select_from(name!("{{#model}}{{table_name}}{{/model}}";"{{#model}}{{table_alias}}{{/model}}"));
+
+    sql_builder
+        .fields({{#repository}}{{table_name_uppercase}}_STRUCT_FIELDS{{/repository}})
+        {{#model}}{{#relations}}.fields({{table_name_uppercase}}_STRUCT_FIELDS){{/relations}}{{/model}}
+        .left()
+        {{#model}}{{#relations}}
+        .join(name!("{{table_name}}";"{{table_name_alias}}"))
+        .on("{{#model}}{{table_alias}}{{/model}}.{{fk}} = {{table_name_alias}}.{{pk}} and {{table_name_alias}}.is_deleted = 0")
+        {{/relations}}{{/model}}
+        .and_where_eq(name!("{{#model}}{{table_alias}}{{/model}}", "is_deleted"), 0)
+        .and_where_eq(name!("{{#model}}{{table_alias}}{{/model}}", "{{#column}}{{column_name}}{{/column}}"), params.add_value({{#column}}{{column_name}}{{/column}}));
+
+    let list: Vec<RelationsResult> = sql_builder.query_list(params, transaction).await?;
+
+    let c = list
+        .into_iter()
+        .map(|rs| {
+            (
+                rs.{{#model}}{{table_name}}{{/model}}.into(),
+                {{#model}}{{#relations}}
+                rs.{{table_name}}.into(),
+                {{/relations}}{{/model}}
+            )
+        })
+        .collect();
+    Ok(c)
+}
+{{/columns}}{{/model}}
