@@ -1,7 +1,8 @@
 {{#model}}{{#columns}}{{#property}}{{import}}
 {{/property}}{{/columns}}{{/model}}
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, sqlx::FromRow, sqlx::Type)]
+#[sqlx(type_name = "RECORD")]
 pub struct {{#model}}{{struct_name}}{{/model}} {
     {{#model}}{{#columns}}
     {{#column}}{{column_name}}{{/column}}: {{#property}}{{{type_name}}}{{/property}},{{/columns}}{{/model}}
