@@ -138,6 +138,7 @@ struct Config {
     search: Search,
     auth: Auth,
     logger: Logger,
+    extra: Extra
 }
 
 #[derive(Deserialize, Content, Clone, Debug)]
@@ -222,6 +223,12 @@ struct Logger {
     log_tz_hour: i8,
     log_tz_minute: i8,
     log_tz_second: i8,
+}
+
+#[derive(Deserialize, Content, Clone, Debug)]
+struct Extra {
+    package_name: String,
+    member_name: String,
 }
 
 struct DebugOpt(bool);

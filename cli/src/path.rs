@@ -14,6 +14,7 @@ pub(crate) struct Path {
     pub(crate) file_server_name: FileName,
     pub(crate) file_auth_name: FileName,
     pub(crate) file_logger_name: FileName,
+    pub(crate) file_extra_name: FileName,
 }
 #[derive(Debug)]
 pub(crate) struct FileName {
@@ -67,6 +68,10 @@ impl Path {
             file_logger_name: FileName {
                 old_name: "logger".to_string(),
                 new_name: "logger".to_string(),
+            },
+            file_extra_name: FileName {
+                old_name: "extra".to_string(),
+                new_name: "extra".to_string(),
             },
         }
     }
@@ -133,6 +138,11 @@ impl Path {
             format!("{}/{}", &self.example_path, &self.file_logger_name.old_name);
         let example_logger_path_new =
             format!("{}/{}", &self.example_path, &self.file_logger_name.new_name);
+        //extra
+        let example_extra_path_old =
+            format!("{}/{}", &self.example_path, &self.file_extra_name.old_name);
+        let example_extra_path_new =
+            format!("{}/{}", &self.example_path, &self.file_extra_name.new_name);
 
         let rename_dir;
         if path.starts_with(&example_warp_api_path_old) {
@@ -174,6 +184,10 @@ impl Path {
         } else if path.starts_with(&example_logger_path_old) {
             rename_dir = path
                 .replace(&example_logger_path_old, &example_logger_path_new)
+                .to_string();
+        } else if path.starts_with(&example_extra_path_old) {
+            rename_dir = path
+                .replace(&example_extra_path_old, &example_extra_path_new)
                 .to_string();
         } else {
             rename_dir = path.to_string();
@@ -234,6 +248,10 @@ impl From<crate::Config> for Path {
 
         if config.logger.member_name.trim().len() > 0 {
             p.file_logger_name.new_name = config.logger.member_name;
+        }
+
+        if config.extra.member_name.trim().len() > 0 {
+            p.file_extra_name.new_name = config.extra.member_name;
         }
 
         p

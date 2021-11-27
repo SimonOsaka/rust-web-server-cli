@@ -77,3 +77,7 @@ log_file = "example.log"
 log_tz_hour = 8
 log_tz_minute = 0
 log_tz_second = 0
+
+[extra]
+package_name = "jextra"
+member_name = "just_extra"
