@@ -81,3 +81,7 @@ log_tz_second = 0
 [extra]
 package_name = "jextra"
 member_name = "just_extra"
+
+[i18n]
+package_name = "ji18n"
+member_name = "just_i18n"

@@ -15,6 +15,7 @@ pub(crate) struct Path {
     pub(crate) file_auth_name: FileName,
     pub(crate) file_logger_name: FileName,
     pub(crate) file_extra_name: FileName,
+    pub(crate) file_i18n_name: FileName,
 }
 #[derive(Debug)]
 pub(crate) struct FileName {
@@ -72,6 +73,10 @@ impl Path {
             file_extra_name: FileName {
                 old_name: "extra".to_string(),
                 new_name: "extra".to_string(),
+            },
+            file_i18n_name: FileName {
+                old_name: "i18n".to_string(),
+                new_name: "i18n".to_string(),
             },
         }
     }
@@ -143,6 +148,11 @@ impl Path {
             format!("{}/{}", &self.example_path, &self.file_extra_name.old_name);
         let example_extra_path_new =
             format!("{}/{}", &self.example_path, &self.file_extra_name.new_name);
+        //i18n
+        let example_i18n_path_old =
+            format!("{}/{}", &self.example_path, &self.file_i18n_name.old_name);
+        let example_i18n_path_new =
+            format!("{}/{}", &self.example_path, &self.file_i18n_name.new_name);
 
         let rename_dir;
         if path.starts_with(&example_warp_api_path_old) {
@@ -188,6 +198,10 @@ impl Path {
         } else if path.starts_with(&example_extra_path_old) {
             rename_dir = path
                 .replace(&example_extra_path_old, &example_extra_path_new)
+                .to_string();
+        } else if path.starts_with(&example_i18n_path_old) {
+            rename_dir = path
+                .replace(&example_i18n_path_old, &example_i18n_path_new)
                 .to_string();
         } else {
             rename_dir = path.to_string();
@@ -252,6 +266,10 @@ impl From<crate::Config> for Path {
 
         if config.extra.member_name.trim().len() > 0 {
             p.file_extra_name.new_name = config.extra.member_name;
+        }
+
+        if config.i18n.member_name.trim().len() > 0 {
+            p.file_i18n_name.new_name = config.i18n.member_name;
         }
 
         p

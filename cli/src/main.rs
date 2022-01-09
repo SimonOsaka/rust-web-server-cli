@@ -138,7 +138,8 @@ struct Config {
     search: Search,
     auth: Auth,
     logger: Logger,
-    extra: Extra
+    extra: Extra,
+    i18n: I18n,
 }
 
 #[derive(Deserialize, Content, Clone, Debug)]
@@ -227,6 +228,12 @@ struct Logger {
 
 #[derive(Deserialize, Content, Clone, Debug)]
 struct Extra {
+    package_name: String,
+    member_name: String,
+}
+
+#[derive(Deserialize, Content, Clone, Debug)]
+struct I18n {
     package_name: String,
     member_name: String,
 }
