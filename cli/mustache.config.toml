@@ -85,3 +85,7 @@ member_name = "just_extra"
 [i18n]
 package_name = "ji18n"
 member_name = "just_i18n"
+
+[util]
+package_name = "jutil"
+member_name = "just_util"
