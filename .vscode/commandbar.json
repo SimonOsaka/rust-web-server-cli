@@ -6,20 +6,20 @@
         {
             "text": "▶︎ cargo run",
             "color": "lightgreen",
-            "tooltip": "workbench.action.tasks.runTask|RUST_LOG=debug cargo run - rust-warp-sqlx-backend",
+            "tooltip": "workbench.action.tasks.runTask|RUST_LOG=debug cargo run - rust-web-server-cli",
             "language": "rust",
             "commandType": "palette",
-            "command": "workbench.action.tasks.runTask|RUST_LOG=debug cargo run - rust-warp-sqlx-backend",
+            "command": "workbench.action.tasks.runTask|RUST_LOG=debug cargo run - rust-web-server-cli",
             "alignment": "left",
             "priority": 10
         },
         {
             "text": "▷ cargo build",
             "color": "yellow",
-            "tooltip": "workbench.action.tasks.runTask|cargo build - rust-warp-sqlx-backend",
+            "tooltip": "workbench.action.tasks.runTask|cargo build - rust-web-server-cli",
             "language": "rust",
             "commandType": "palette",
-            "command": "workbench.action.tasks.runTask|cargo build - rust-warp-sqlx-backend",
+            "command": "workbench.action.tasks.runTask|cargo build - rust-web-server-cli",
             "alignment": "left",
             "priority": 9
         },

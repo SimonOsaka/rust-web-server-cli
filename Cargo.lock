@@ -55,6 +55,19 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cdb031dd78e28731d87d56cc8ffef4a8f36ca26c38fe2de700543e627f8a464a"
 
 [[package]]
+name = "bae"
+version = "0.1.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "33b8de67cc41132507eeece2584804efcb15f85ba516e34c944b7667f480397a"
+dependencies = [
+ "heck",
+ "proc-macro-error",
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
 name = "base64"
 version = "0.13.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -728,9 +741,9 @@ dependencies = [
 
 [[package]]
 name = "pulldown-cmark"
-version = "0.7.2"
+version = "0.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ca36dea94d187597e104a5c8e4b07576a8a45aa5db48a65e12940d3eb7461f55"
+checksum = "ffade02495f22453cd593159ea2f59827aae7f53fa8323f756799b670881dcf8"
 dependencies = [
  "bitflags",
  "getopts",
@@ -749,9 +762,9 @@ dependencies = [
 
 [[package]]
 name = "ramhorns"
-version = "0.12.0"
+version = "0.13.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "48b5bc84254cfe71ba5d7220154db9b28d3f2cb02b0ccbf0feb7a9f6f3a5f8f9"
+checksum = "e1a49bc1fc5a91b75c965f2b1a9c4975bdab1f35b977e605615418aa3baad85d"
 dependencies = [
  "ahash",
  "arrayvec",
@@ -764,10 +777,11 @@ dependencies = [
 
 [[package]]
 name = "ramhorns-derive"
-version = "0.11.0"
+version = "0.13.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8988227ddc8b4ebe19cbb1a075913aaa7b48c651816495d5ab00860667816f7e"
+checksum = "226f2b96004196dbe0102f67dd0c63c9be60fdf7e14b537f9c03d4ca94f9f59b"
 dependencies = [
+ "bae",
  "fnv",
  "proc-macro2",
  "quote",

@@ -11,7 +11,7 @@ name = "gen"
 
 [dependencies]
 serde = { version = "1.0", default-features = false, features = ["derive"] }
-ramhorns = "0.12.0"
+ramhorns = "0.13.0"
 toml = "0.5.8"
 walkdir = "2"
 structopt = "0.3"

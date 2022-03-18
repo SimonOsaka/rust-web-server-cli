@@ -132,7 +132,6 @@ struct Config {
     server: Server,
     repository: Repository,
     domain: Domain,
-    warp_api: WarpApi,
     axum_api: AxumApi,
     redis: Redis,
     search: Search,
@@ -178,12 +177,6 @@ struct Repository {
 
 #[derive(Deserialize, Content, Clone, Debug)]
 struct Domain {
-    package_name: String,
-    member_name: String,
-}
-
-#[derive(Deserialize, Content, Clone, Debug)]
-struct WarpApi {
     package_name: String,
     member_name: String,
 }

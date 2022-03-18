@@ -10,7 +10,7 @@
                 "$rustc"
             ],
             "group": "build",
-            "label": "RUST_LOG=debug cargo run - rust-warp-sqlx-backend"
+            "label": "RUST_LOG=debug cargo run - rust-web-server-cli"
         },
         {
             "type": "shell",
@@ -21,7 +21,7 @@
                 "$rustc"
             ],
             "group": "build",
-            "label": "cargo build - rust-warp-sqlx-backend"
+            "label": "cargo build - rust-web-server-cli"
         },
         {
             "type": "shell",

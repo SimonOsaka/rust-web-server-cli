@@ -43,10 +43,6 @@ time_out = 30
 package_name = "jdomain"
 member_name = "just_domain"
 
-[warp_api]
-package_name = "japi_warp"
-member_name = "just_warp_api"
-
 [axum_api]
 package_name = "japi_axum"
 member_name = "just_axum_api"

@@ -4,7 +4,6 @@ pub(crate) struct Path {
     pub(crate) mustache_file_extension: String,
     pub(crate) example_path: String,
     pub(crate) crates_name: String,
-    pub(crate) file_warp_api_name: FileName,
     pub(crate) file_axum_api_name: FileName,
     pub(crate) file_domain_name: FileName,
     pub(crate) file_repository_name: FileName,
@@ -31,10 +30,6 @@ impl Path {
             mustache_file_extension: "mustache".to_string(),
             example_path: "./example".to_string(),
             crates_name: "crates".to_string(),
-            file_warp_api_name: FileName {
-                old_name: "warp-api".to_string(),
-                new_name: "warp-api".to_string(),
-            },
             file_axum_api_name: FileName {
                 old_name: "axum-api".to_string(),
                 new_name: "axum-api".to_string(),
@@ -86,15 +81,6 @@ impl Path {
         }
     }
     pub(crate) fn rename_dir(&self, path: &str) -> String {
-        //warp-api
-        let example_warp_api_path_old = format!(
-            "{}/{}",
-            &self.example_path, &self.file_warp_api_name.old_name
-        );
-        let example_warp_api_path_new = format!(
-            "{}/{}",
-            &self.example_path, &self.file_warp_api_name.new_name
-        );
         //axum-api
         let example_axum_api_path_old = format!(
             "{}/{}",
@@ -165,11 +151,7 @@ impl Path {
             format!("{}/{}", &self.example_path, &self.file_util_name.new_name);
 
         let rename_dir;
-        if path.starts_with(&example_warp_api_path_old) {
-            rename_dir = path
-                .replace(&example_warp_api_path_old, &example_warp_api_path_new)
-                .to_string();
-        } else if path.starts_with(&example_axum_api_path_old) {
+        if path.starts_with(&example_axum_api_path_old) {
             rename_dir = path
                 .replace(&example_axum_api_path_old, &example_axum_api_path_new)
                 .to_string();
@@ -236,10 +218,6 @@ impl From<crate::Config> for Path {
         }
         if config.example_path.trim().len() > 0 {
             p.example_path = config.example_path;
-        }
-
-        if config.warp_api.member_name.trim().len() > 0 {
-            p.file_warp_api_name.new_name = config.warp_api.member_name;
         }
 
         if config.axum_api.member_name.trim().len() > 0 {
