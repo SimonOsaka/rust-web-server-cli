@@ -1,10 +1,11 @@
 ## rust-web-server-cli
-Generate rust web server code via mustache template [rust-web-server-mustache](https://github.com/SimonOsaka/rust-web-server-mustache).
+Generate rust web server code via mustache template.
 
-[rust-web-server-cli](https://github.com/SimonOsaka/rust-web-server-cli) ╋ [rust-web-server-mustache](https://github.com/SimonOsaka/rust-web-server-mustache) 〓 [rust-web-server-example](https://github.com/SimonOsaka/rust-web-server-example)
+[rust-web-server-cli](https://github.com/SimonOsaka/rust-web-server-cli) ╋ `mustache code` 〓 [rust-web-server-example](https://github.com/SimonOsaka/rust-web-server-example)
 
 - cli: generate code
 - mapper: generate sql and model
+- trans: transform source code to mustache code
 
 ### Source to use
 
@@ -14,7 +15,7 @@ Generate rust web server code via mustache template [rust-web-server-mustache](h
 4. `vi mustache.config.toml`
 5. modify mustache path and example path.
 ```toml
-mustache_path = "<input 'rust-web-server-mustache' path>"
+mustache_path = "<input 'mustache code' path>"
 
 example_path = "<input path to generate>"
 ```

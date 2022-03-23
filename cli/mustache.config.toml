@@ -2,85 +2,49 @@
 project_name = "rustxxx"
 
 # code template path, default value: './mustache'
-mustache_path = "/Volumes/code/github/rust-web-server-mustache"
+mustache_path = "/Volumes/code/temp/rust-web-server-mustache"
 
 # code gen path, default value: './example', for example: './example', '/Volumes/hello/world'
-example_path = "/Volumes/code/temp/example"
+example_path = "/Volumes/code/temp/"
 
 [cargo_toml]
-# bin's name of command 'cargo build --release'
-bin_name = "rustx"
+bin_name = "rustx" # bin's name of command 'cargo build --release'
 
 [env]
-# database url
-database_url = "postgres://postgres:@localhost:5432/my_example"
-# server bind address
-bind_address = "127.0.0.1:3030"
+database_url = "postgres://postgres:@localhost:5432/my_example" # database url
+bind_address = "127.0.0.1:3030"                                 # server bind address
 
-[types]
-#lib 'types' package name
-package_name = "jtypes"
-#lib 'types' member name or folder name or module name
-member_name = "just_types"
+[vars]
+package_name = "jvars"    #lib 'vars' package name
+member_name = "just_vars" #lib 'vars' member name or folder name or module name
 
-[server]
-package_name = "jserver"
-member_name = "just_server"
+[server_lib]
+package_name = "jserver_lib"
+member_name = "just_server_lib"
+
+[server_app]
+package_name = "jserver_app"
+member_name = "just_server_app"
 
 [repository]
 package_name = "jrepository"
 member_name = "just_repository"
-# timezone offset
-postgres_time_zone = "Asia/Shanghai"
-# connection's max num
-max_conn = 10
-# connection's min num
-min_conn = 1
-# second
-time_out = 30
 
 [domain]
 package_name = "jdomain"
 member_name = "just_domain"
 
-[axum_api]
-package_name = "japi_axum"
-member_name = "just_axum_api"
-
-[redis]
-package_name = "jredis"
-member_name = "just_redis"
-redis_url = "redis://:123456@192.168.56.102:6379/"
+[api]
+package_name = "japi"
+member_name = "just_api"
 
 [search]
 package_name = "jsearch"
 member_name = "just_search"
-search_url = "http://127.0.0.1:7700"
-search_key = "meili-master-key"
-
-[auth]
-package_name = "jauth"
-member_name = "just_auth"
-jwt_secret = "imsecret"
-
-
-[logger]
-package_name = "jlogger"
-member_name = "just_logger"
-#log file path
-log_path = "/apps/log/rust"
-log_file = "example.log"
-log_tz_hour = 8
-log_tz_minute = 0
-log_tz_second = 0
 
 [extra]
 package_name = "jextra"
 member_name = "just_extra"
-
-[i18n]
-package_name = "ji18n"
-member_name = "just_i18n"
 
 [util]
 package_name = "jutil"

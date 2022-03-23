@@ -57,10 +57,11 @@ fn main() {
     for entry in walk_dir {
         let entry = entry.unwrap();
         let mustache_path = entry.path().to_str();
-        // exclude .git
-        if mustache_path.unwrap().contains(".git") {
-            continue;
-        }
+        // exclude .git, mustache path dir removes .git dir
+        // if mustache_path.unwrap().ends_with(".git") {
+        //     debug_opt.debug(format!("exclude: {:?}", mustache_path.unwrap()));
+        //     continue;
+        // }
 
         let example_path = mustache_path.unwrap().replace(
             my_path.mustache_path.as_str(),
@@ -128,17 +129,14 @@ struct Config {
     example_path: String,
     cargo_toml: CargoToml,
     env: ENV,
-    types: Types,
-    server: Server,
+    vars: Vars,
+    server_lib: ServerLib,
+    server_app: ServerApp,
     repository: Repository,
     domain: Domain,
-    axum_api: AxumApi,
-    redis: Redis,
+    api: Api,
     search: Search,
-    auth: Auth,
-    logger: Logger,
     extra: Extra,
-    i18n: I18n,
     util: Util,
 }
 
@@ -154,13 +152,19 @@ struct ENV {
 }
 
 #[derive(Deserialize, Content, Clone, Debug)]
-struct Types {
+struct Vars {
     member_name: String,
     package_name: String,
 }
 
 #[derive(Deserialize, Content, Clone, Debug)]
-struct Server {
+struct ServerLib {
+    package_name: String,
+    member_name: String,
+}
+
+#[derive(Deserialize, Content, Clone, Debug)]
+struct ServerApp {
     package_name: String,
     member_name: String,
 }
@@ -169,10 +173,6 @@ struct Server {
 struct Repository {
     package_name: String,
     member_name: String,
-    postgres_time_zone: String,
-    max_conn: i8,
-    min_conn: i8,
-    time_out: i8,
 }
 
 #[derive(Deserialize, Content, Clone, Debug)]
@@ -182,52 +182,19 @@ struct Domain {
 }
 
 #[derive(Deserialize, Content, Clone, Debug)]
-struct AxumApi {
+struct Api {
     package_name: String,
     member_name: String,
-}
-
-#[derive(Deserialize, Content, Clone, Debug)]
-struct Redis {
-    package_name: String,
-    member_name: String,
-    redis_url: String,
 }
 
 #[derive(Deserialize, Content, Clone, Debug)]
 struct Search {
     package_name: String,
     member_name: String,
-    search_url: String,
-    search_key: String,
-}
-
-#[derive(Deserialize, Content, Clone, Debug)]
-struct Auth {
-    package_name: String,
-    member_name: String,
-    jwt_secret: String,
-}
-
-#[derive(Deserialize, Content, Clone, Debug)]
-struct Logger {
-    package_name: String,
-    member_name: String,
-    log_path: String,
-    log_file: String,
-    log_tz_hour: i8,
-    log_tz_minute: i8,
-    log_tz_second: i8,
 }
 
 #[derive(Deserialize, Content, Clone, Debug)]
 struct Extra {
-    package_name: String,
-    member_name: String,
-}
-
-#[derive(Deserialize, Content, Clone, Debug)]
-struct I18n {
     package_name: String,
     member_name: String,
 }
